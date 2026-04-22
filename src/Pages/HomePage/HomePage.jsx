@@ -26,6 +26,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import HeroPhone from "@/assets/HeroPhone.png";
 import Herosection from "./components/Herosection";
 import KaashtKartAbout from "./components/Kaashtkartabout";
+import CategorySection from "./components/CategorySection";
+import PromoCards from "./components/PromoCards";
 
 // ── Icons (inline SVGs to avoid external deps) ──────────────────────────────
 const SearchIcon = () => (
@@ -93,16 +95,8 @@ const GREEN_LIGHT = "#e8f5e9";
 const YELLOW = "#f5a623";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
-const navLinks = ["Ayurveda", "Cocoa", "Edible Oils", "Jaggery", "Raw Honey", "Dry Fruits", "Fresh Fruits"];
 
-const categories = [
-  { name: "Handicrafts", count: "1 items", color: "#fff0f0", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Handicrafts" },
-  { name: "Rice", count: "0 items", color: "#f0f4ff", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Rice" },
-  { name: "Mushrooms", count: "0 items", color: "#f5f0ff", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Mushrooms" },
-  { name: "Ayurveda", count: "10 items", color: "#fff8f0", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Ayurveda" },
-  { name: "Millets", count: "6 items", color: "#f0fff4", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Millets" },
-  { name: "Teas", count: "2 items", color: "#fff0f8", img: "https://placehold.co/80x80/e8f0e8/1a7a3f?text=Teas" },
-];
+
 
 const featuredProducts = [
   { name: "DOCTOR MORINGA Sweet Cookies - Jaggery Biscuit | Multi Millet...", price: "₹75", weight: "100 g", brand: "DOCTOR MORINGA Sweet Cookies", color: "#fff8f0" },
@@ -200,143 +194,7 @@ const socialIcons = [
   { label: "X", icon: Send },
 ];
 
-// ── Sub-components ─────────────────────────────────────────────────────────────
-
-// function TopBar() {
-//   return (
-//     <div style={{ backgroundColor: GREEN }} className="text-white text-xs py-1.5">
-//       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-//         <div className="flex gap-6">
-//           <span>● Get 10% off on Orders above ₹699</span>
-//           <span>● Get 15% off + Free Gift on Order above ₹1199</span>
-//           <span>● Get 15% off + A Special Gift on Order above ₹29!</span>
-//         </div>
-//         <div className="flex gap-2">
-//           <button className="bg-white text-green-800 px-3 py-0.5 rounded text-xs font-semibold">Farm Input</button>
-//           <button className="bg-yellow-400 text-green-900 px-3 py-0.5 rounded text-xs font-semibold">Farm Output</button>
-//           <button className="border border-white px-2 py-0.5 rounded text-xs flex items-center gap-1">English <ChevronDown /></button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Header() {
-//   return (
-//     <div className="bg-white border-b border-gray-100 py-3 shadow-sm sticky top-0 z-50">
-//       <div className="max-w-7xl mx-auto px-4 flex items-center gap-6">
-//         {/* Logo */}
-//         <div className="flex items-center gap-2 min-w-fit">
-//           <div style={{ color: GREEN }} className="font-black text-2xl leading-none">
-//             <span style={{ color: GREEN }}>Kaasht</span>
-//             <span style={{ color: YELLOW }}>Kart</span>
-//           </div>
-//           <div className="text-xs text-gray-500 leading-tight hidden sm:block">Fresh Means. Inspire Trust.</div>
-//         </div>
-
-//         {/* All Categories */}
-//         <button style={{ backgroundColor: GREEN }} className="text-white flex items-center gap-2 px-3 py-2 rounded text-sm font-medium whitespace-nowrap">
-//           ☰ All Categories <ChevronDown />
-//         </button>
-
-//         {/* Search */}
-//         <div className="flex-1 relative">
-//           <input
-//             placeholder="Search for products, categories or brands"
-//             className="w-full border border-gray-300 rounded px-4 py-2 text-sm pr-10 focus:outline-none focus:border-green-600"
-//           />
-//           <button style={{ backgroundColor: GREEN }} className="absolute right-0 top-0 h-full px-3 rounded-r text-white">
-//             <SearchIcon />
-//           </button>
-//         </div>
-
-//         {/* Nav icons */}
-//         <div className="flex items-center gap-4 text-sm text-gray-600">
-//           <button className="flex flex-col items-center gap-0.5 hover:text-green-700">
-//             <UserIcon /><span className="text-xs">Login</span>
-//           </button>
-//           <button className="flex flex-col items-center gap-0.5 hover:text-green-700 relative">
-//             <HeartIcon /><span className="text-xs">Wishlist</span>
-//             <span className="absolute -top-1 -right-1 bg-green-600 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-//           </button>
-//           <button className="flex flex-col items-center gap-0.5 hover:text-green-700 relative">
-//             <CartIcon /><span className="text-xs">Cart</span>
-//             <span className="absolute -top-1 -right-1 bg-green-600 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Nav links */}
-//       <div className="max-w-7xl mx-auto px-4 flex gap-6 mt-2 text-sm text-gray-700 border-t pt-2">
-//         {navLinks.map(link => (
-//           <a key={link} href="#" className="hover:text-green-700 whitespace-nowrap">{link}</a>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// function HeroBanner() {
-//   return (
-//     <div style={{
-//       background: "linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 50%, #dcedc8 100%)",
-//       minHeight: 320,
-//     }} className="relative overflow-hidden">
-//       <div className="max-w-7xl mx-auto px-8 py-12 flex items-center justify-between">
-//         <div className="max-w-lg">
-//           <h1 className="text-4xl font-black text-gray-900 leading-tight mb-2">
-//             Building Techno-Commercial<br />Expertise For Farmers
-//           </h1>
-//           <p style={{ color: GREEN }} className="font-semibold text-lg mb-3">Empowering rural India with smart agricultural solutions</p>
-//           <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-//             KaashtKart is an E-commerce platform to facilitate <strong>FPOs, SHGs, NGOs, Entrepreneur Farmers</strong> to connect them directly to the customers. Also farmers can buy high quality Farm-inputs from reputable manufacturers and producers.
-//           </p>
-//           <div className="flex gap-3 mb-4">
-//             <button style={{ backgroundColor: GREEN }} className="text-white px-5 py-2.5 rounded text-sm font-semibold flex items-center gap-2 hover:bg-green-800 transition-colors">
-//               <DownloadIcon /> Download App
-//             </button>
-//             <button className="border-2 border-green-700 text-green-700 px-5 py-2.5 rounded text-sm font-semibold hover:bg-green-50 transition-colors">
-//               → Explore Products
-//             </button>
-//           </div>
-//           <p className="text-xs text-gray-500 flex items-center gap-1.5">
-//             <LucideShieldCheck size={14} className="text-green-700" />
-//             <span>100% genuine products · Free delivery · Secure payment</span>
-//           </p>
-//         </div>
-//         {/* Hero phone image */}
-//         <div className="hidden lg:flex items-center justify-center">
-//           <img
-//             src={HeroPhone}
-//             alt="KaashtKart app preview"
-//             className="w-72 xl:w-80 h-auto object-contain drop-shadow-2xl"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function InfoSection() {
-//   return (
-//     <div className="bg-gray-900 text-gray-300 py-8">
-//       <div className="max-w-7xl mx-auto px-8">
-//         <p className="text-sm leading-relaxed mb-4">
-//           <span style={{ color: GREEN }} className="font-semibold">KaashtKart</span> is an E-commerce platform to facilitate FPOs, SHGs, NGOs, Entrepreneur Farmers to connect them directly to the customers. This is the first online marketplace exclusively customized for FPOs and other rural businesses. We designed an Easy to Use platform to empower the Agri producers, manufacturers and other sellers by enabling them to reach directly exclusive consumers, retail and wholesale customers. Our aim is to transform the agricultural supply chain, fostering a direct, transparent and open market connection between farmers and consumers.
-//         </p>
-//         <p className="text-sm mb-4">
-//           <span className="bg-green-700 text-white px-2 py-0.5 rounded text-xs font-bold mr-2">Farmers Producers Organisation (FPO)</span>
-//           - A collective organisation of farmers or other primary producers that aims to improve their income, efficiency and profitability through collective bargaining, access to resources, and value addition.
-//         </p>
-//         <p className="text-sm mb-3">
-//           According to a latest report* 45000 FPOs are registered countrywide, but only 16000 compliant with regulatory filings. The biggest challenge before the FPOs and Entrepreneur farmers are sales and marketing of their products without the traditional middlemen system.{" "}
-//           <span className="underline text-green-400">KaashtKart is an effort to provide a dedicated Direct to Customers (D2C) online marketplace.</span> We are committed to provide a comprehensive marketplace to sell and buy various products needed for agri communities. At the same time, urban folks can buy online pure, authentic and healthy products which are not easily available. KaashtKart is a mission to empower the farming communities.
-//         </p>
-//         <p className="text-sm">KaashtKart aims to transform the agricultural supply chain by creating a transparent, direct-to-customer marketplace connecting farmers and consumers.</p>
-//       </div>
-//     </div>
-//   );
-// }
+// ── Sub-components ────────────────────────────────────────────────────────────
 
 function TrustBadges() {
   const badges = [
@@ -364,78 +222,9 @@ function TrustBadges() {
   );
 }
 
-function CategorySection() {
-  return (
-    <div className="bg-white py-10">
-      <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-2xl font-bold text-center mb-2 text-gray-900">Fresh · Pure · Authentic ·</h2>
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Direct From Farmers</h2>
-        <div className="relative flex items-center">
-          <button className="absolute -left-4 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-50">
-            <ChevronLeft />
-          </button>
-          <div className="grid grid-cols-6 gap-4 w-full px-2">
-            {categories.map(cat => (
-              <div key={cat.name} className="text-center cursor-pointer group">
-                <div className="rounded-xl p-4 flex items-center justify-center h-24 mb-2 transition-transform group-hover:scale-105"
-                  style={{ backgroundColor: cat.color }}>
-                  <div className="text-4xl text-green-700">
-                    {(() => {
-                      const Icon = categoryIconMap[cat.name] || LucideLeaf;
-                      return <Icon size={38} strokeWidth={2} />;
-                    })()}
-                  </div>
-                </div>
-                <div className="font-semibold text-sm text-gray-800">{cat.name}</div>
-                <div style={{ color: GREEN }} className="text-xs font-medium">{cat.count}</div>
-              </div>
-            ))}
-          </div>
-          <button className="absolute -right-4 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-50">
-            <ChevronRight />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-function PromoCards() {
-  return (
-    <div className="max-w-7xl mx-auto px-8 py-6 grid grid-cols-2 gap-4">
-      <div className="rounded-xl overflow-hidden relative flex items-center justify-between px-8 py-6"
-        style={{ background: "linear-gradient(135deg, #fff8e1 0%, #ffe082 100%)", minHeight: 140 }}>
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <LeafIcon />
-            <span className="text-xs font-semibold text-green-800 bg-green-100 px-2 py-0.5 rounded-full">Farm Fresh Offer</span>
-          </div>
-          <h3 className="text-xl font-black text-gray-900">Fresh Fruits,<br />Direct From Farmers</h3>
-          <p className="text-gray-600 text-xs mt-1">Direct from the farm to your home —<br />no middleman involved.</p>
-          <button style={{ backgroundColor: GREEN }} className="text-white mt-3 px-4 py-1.5 rounded text-xs font-semibold flex items-center gap-1">
-            <ShoppingCart size={14} /> Shop Fresh Now
-          </button>
-        </div>
-        <div className="text-green-800"><Citrus size={72} strokeWidth={1.8} /></div>
-      </div>
-      <div className="rounded-xl overflow-hidden relative flex items-center justify-between px-8 py-6"
-        style={{ background: "linear-gradient(135deg, #fff8e1 0%, #ffcc80 100%)", minHeight: 140 }}>
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <LeafIcon />
-            <span className="text-xs font-semibold text-green-800 bg-green-100 px-2 py-0.5 rounded-full">Season's Special</span>
-          </div>
-          <h3 className="text-xl font-black text-gray-900">Golden Mangoes,<br />Fresh From the Farm</h3>
-          <p className="text-gray-600 text-xs mt-1">Naturally sweet, juicy, and<br />handpicked for you.</p>
-          <button style={{ backgroundColor: GREEN }} className="text-white mt-3 px-4 py-1.5 rounded text-xs font-semibold flex items-center gap-1">
-            <ShoppingCart size={14} /> Shop Mangoes Now
-          </button>
-        </div>
-        <div className="text-amber-700"><Apple size={72} strokeWidth={1.8} /></div>
-      </div>
-    </div>
-  );
-}
+
+
 
 function ProductCard({ product, showOldPrice = true }) {
   return (
