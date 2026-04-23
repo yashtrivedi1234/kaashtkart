@@ -81,20 +81,22 @@ const featuredProducts = [
 ];
 
 export default function FeaturedProducts() {
-  const [viewportWidth, setViewportWidth] = useState(1400);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1400
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const visibleCards = useMemo(() => {
-    if (viewportWidth < 768) return 1;
-    if (viewportWidth < 1024) return 2;
+    if (viewportWidth < 640) return 1;
+    if (viewportWidth < 768) return 2;
+    if (viewportWidth < 1024) return 3;
     return 4;
   }, [viewportWidth]);
 
@@ -102,35 +104,46 @@ export default function FeaturedProducts() {
   const safeIndex = Math.min(currentIndex, maxIndex);
 
   const handlePrev = () => setCurrentIndex((prev) => Math.max(0, prev - 1));
-  const handleNext = () => setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  const handleNext = () =>
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
 
   const slideWidthPercent = 100 / visibleCards;
   const translatePercent = safeIndex * slideWidthPercent;
 
   return (
-    <section className="max-w-[1380px] mx-auto px-8 py-8">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Featured Products</h2>
-      <div className="relative">
+    <section className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-gray-900">
+        Featured Products
+      </h2>
+
+      <div className="relative px-4 sm:px-5">
+        {/* Prev Button */}
         <button
           type="button"
-          className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md"
-          aria-label="Previous products"
           onClick={handlePrev}
           disabled={safeIndex === 0}
+          aria-label="Previous products"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
         >
-          <ChevronLeft />
+          <ChevronLeft className="w-4 h-4 text-gray-600" />
         </button>
 
+        {/* Carousel Track */}
         <div className="overflow-hidden">
           <div
-            className="flex gap-4 transition-transform duration-300 ease-out"
-            style={{ transform: `translateX(-${translatePercent}%)` }}
+            className="flex transition-transform duration-300 ease-out"
+            style={{
+              transform: `translateX(-${translatePercent}%)`,
+              gap: "14px",
+            }}
           >
             {featuredProducts.map((product) => (
               <div
                 key={product.name}
-                style={{ flex: `0 0 calc(${slideWidthPercent}% - 12px)` }}
-                className="min-w-0"
+                style={{
+                  flex: `0 0 calc(${slideWidthPercent}% - 12px)`,
+                  minWidth: 0,
+                }}
               >
                 <ProductCard product={product} />
               </div>
@@ -138,16 +151,33 @@ export default function FeaturedProducts() {
           </div>
         </div>
 
+        {/* Next Button */}
         <button
           type="button"
-          className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md"
-          aria-label="Next products"
           onClick={handleNext}
           disabled={safeIndex === maxIndex}
+          aria-label="Next products"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-md disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
         >
-          <ChevronRight />
+          <ChevronRight className="w-4 h-4 text-gray-600" />
         </button>
       </div>
+
+      {/* Dot Indicators (mobile only) */}
+      {visibleCards === 1 && (
+        <div className="flex justify-center gap-1.5 mt-4">
+          {featuredProducts.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                i === safeIndex ? "bg-green-600" : "bg-gray-300"
+              }`}
+              aria-label={`Go to product ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
